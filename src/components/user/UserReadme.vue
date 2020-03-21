@@ -298,6 +298,41 @@
           </div>
         </div>
       </div>
+      <div class="card">
+        <div class="card-header">
+          <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                  data-target="#collapseOne8">
+            八、协同链接
+          </button>
+        </div>
+        <div id="collapseOne8" class="collapse">
+          <div class="card-body">
+            <table class="table" style="width: 1200px">
+              <tbody>
+              <tr>
+                <td colspan="2">不能打开协同数据时，要设置Cookie
+                </td>
+
+              </tr>
+              <tr>
+                <td>
+                  1、登录协同，2、F12打开，3复制Cookie值：CD12A2D1BAEFF0DC4813D303E8A2A3A6
+                </td>
+                <td>
+                  <img src="../../../static/image/UserReadme/xtcookie1.png" />
+                </td>
+
+              </tr>
+              <tr>
+                <td > 4、设置cookie</td>
+                <td >  <img src="../../../static/image/UserReadme/xtcookie2.png" /></td>
+              </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>

@@ -20,11 +20,18 @@
             查询 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
           </button>
         </div>
+
+
       </div>
+   <!--   <div class="btn-group" style="float: right;margin-top: -55px">
+        <button type="button" class="btn btn-outline-dark" @click="searchProjectByPo(searchproject)">
+          查询 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+        </button>
+      </div>-->
 
 
     </div>
-    <div ><!--数据显示地方-->
+    <div><!--数据显示地方-->
       <el-table
         :data="projects"
         :height="height"
@@ -34,11 +41,11 @@
           'border-bottom': '1px #e2e3e5 solid'
         }"
         border
-        style="width: 100%;margin-left: 5px">
+        style="width: 100%;margin-left: 5px;margin-top: 3px">
         <el-table-column
           type="index"
           label="序号"
-          width="50px"
+          width="60px"
 
         >
           <template slot-scope="scope">{{ (searchproject.pageindex-1)*searchproject.limit + (scope.$index+1) }}
@@ -101,7 +108,7 @@
         <el-table-column
           fixed="right"
           label="操作"
-          width="130">
+          width="140">
           <template slot-scope="scope">
             <button type="button" class="btn btn-outline-dark btn-sm" @click="lookXT(scope.row)">查看</button>
             <button type="button" class="btn btn-outline-dark btn-sm" v-if="showokbtu"
@@ -172,6 +179,7 @@
   import Pageination from "../public/Pageination";
   import axios from 'axios'
   import $ from 'jquery'
+
   export default {
     name: "SelectProject",
     data() {
@@ -210,11 +218,11 @@
     },
     created() {
 
-      this.height = this.$store.state.height -130;
+      this.height = this.$store.state.height - 130;
       this.searchProjectByPo(this.searchproject, 1);
       //console.log(document.getElementById('bottom').getClientRects()[0].bottom);
     },
-    mounted(){
+    mounted() {
 
 
       if (this.$route.path === "/user/createproject") {

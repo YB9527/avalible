@@ -17,10 +17,11 @@
               <router-link class="nav-link " to="/user/reportpage">查看简报</router-link>
             </li>
             <li class="nav-item dropdown">
-           <!--   <router-link :class="dropdownclass" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false" to="#">关于软件
-              </router-link>-->
-              <button type="button" :class="dropdownclass" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <!--   <router-link :class="dropdownclass" data-toggle="dropdown" role="button" aria-haspopup="true"
+                              aria-expanded="false" to="#">关于软件
+                 </router-link>-->
+              <button type="button" :class="dropdownclass" data-toggle="dropdown" aria-haspopup="true"
+                      aria-expanded="false">
                 关于软件
               </button>
               <div class="dropdown-menu">
@@ -40,6 +41,9 @@
             </button>
             <span style="line-height: 40px">当前用户：{{$store.getters.getUser?$store.getters.getUser.alias:""}}&nbsp;&nbsp;&nbsp;</span>
             <div class="dropdown-menu">
+              <button class="dropdown-item" type="button"
+                      @click="setXTCookie">设置协同Cookie
+              </button>
               <button class="dropdown-item" data-toggle="modal" data-target="#setusermodal" type="button"
                       @click="editUser($store.getters.getUser)">编辑用户
               </button>
@@ -100,6 +104,7 @@
   import axios from 'axios'
   import tool from '@/public/js/tool.js'
   import $ from 'jquery'
+
   export default {
     name: "User",
     data() {
@@ -114,7 +119,7 @@
     },
     watch: {
       $route(to, from) {
-        if (to.path.indexOf("/user/software") !== -1 ) {
+        if (to.path.indexOf("/user/software") !== -1) {
           this.dropdownclass = 'btn  nav-link dropdown-toggle active';
         } else {
           this.dropdownclass = 'btn  nav-link dropdown-toggle';
@@ -128,8 +133,25 @@
       }
     },
     methods: {
+      setXTCookie() {
+        this.$prompt('请输入Cookie', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          inputPattern: /[0-9]+/,
+          inputErrorMessage: '内容不正确'
+        }).then(({value}) => {
+          this.$store.commit("getCustom", {
+            url: "xietong/setcookie?JSESSIONIDValue="+value, callback: result => {
+
+            }
+          });
+        }).catch(() => {
+          this.$store.commit("notify", {type: "warning", message: "取消输入", title: "提示："});
+
+        });
+      },
       //重新登录
-      reLogin(){
+      reLogin() {
         this.$router.push({path: '/login'})
       },
       editUser(user) {
@@ -138,7 +160,7 @@
       saveEdit(user) {
         this.modal = "";
         if (!user.pass) {
-          this.$store.commit("showMessageBox",{message:"密码没有填写不能填写！！！",type:"error"} );
+          this.$store.commit("showMessageBox", {message: "密码没有填写不能填写！！！", type: "error"});
           return;
         }
 
@@ -153,11 +175,11 @@
           .then(res => {
             if (res.data.status === 0) {
               ($('#setusermodal')).modal("hide");
-              this.$store.commit("notify",{message:"更改成功",type:"success"} );
+              this.$store.commit("notify", {message: "更改成功", type: "success"});
               this.$store.commit("setUser", user);
               /* this.modal = "modal";*/
             } else if (res.data.status === 1) {
-              this.$store.commit("showMessageBox",{message:"密码错误，编辑失败！！！",type:"error"} );
+              this.$store.commit("showMessageBox", {message: "密码错误，编辑失败！！！", type: "error"});
             }
           });
       },
@@ -179,6 +201,7 @@
     top: 0;
     box-shadow: 0 1px 6px #ccc;
   }
+
   .dropdown-item.active {
     background-color: #5a6268;
   }

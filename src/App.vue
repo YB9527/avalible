@@ -43,15 +43,19 @@
 
 
     },
-    watch: {},
+    watch: {
+      $route(to, from) {
+        this.$store.commit("setHeight", window.innerHeight-10);
+      }
+    },
 
     mounted() {
-      this.$store.commit("setHeight", window.innerHeight);
+      /*this.$store.commit("setHeight", window.innerHeight);
       let self = this;
       var t2 = setInterval(function () {
         //定时刷新屏幕高度
         self.$store.commit("setHeight", window.innerHeight);
-      }, 5000);
+      }, 5000);*/
 
     },
     methods: {
